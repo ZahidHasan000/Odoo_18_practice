@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="product_template_inherit_form" model="ir.ui.view">
+        <field name="name">product_template_inherit_form</field>
+        <field name="model">product.template</field>
+        <!--        take the ExternalId in this below ref-->
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+
+            <!--            add two fields in this tree view-->
+            <xpath expr="//div[@class='oe_title']" position="after">
+                <group>
+                    <group>
+                        <label for="dest_from"/>
+                        <div class="o_row">
+                            <field name="dest_from" options="{'no_create': True}"/>
+                            <label for="dest_to"/>
+                            <div>
+                                <field name="dest_to" options="{'no_create': True}"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group>
+
+                    </group>
+
+                </group>
+            </xpath>
+
+            <xpath expr="//page[@name='general_information']//group[@name='group_general']" position="inside">
+                <!--                            <field name="quality"/>-->
+                <!--                            <field name="quantity"/>-->
+                <field name="quality" invisible="type in ['service', 'combo']"/>
+                <field name="quantity" invisible="type in ['service', 'combo']"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

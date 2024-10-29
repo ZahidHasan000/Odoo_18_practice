@@ -1,0 +1,36 @@
+<odoo>
+    <!-- Inherit the sale report pivot view to add the quality field -->
+    <!--    <record id="view_order_product_pivot_inherit" model="ir.ui.view">-->
+    <!--        <field name="name">sale.report.pivot.inherit</field>-->
+    <!--        <field name="model">sale.report</field>-->
+    <!--        <field name="inherit_id" ref="sale.view_order_product_pivot"/>  &lt;!&ndash; Reference to your original pivot view &ndash;&gt;-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            &lt;!&ndash; Add the quality field as a measure in the pivot view &ndash;&gt;-->
+    <!--            <xpath expr="//pivot" position="inside">-->
+
+    <!--                <field name="tax_id" type="measure" string="Taxes" operator="count"/> &lt;!&ndash; Use COUNT to aggregate &ndash;&gt;-->
+    <!--                &lt;!&ndash;                <field name="quality" type="measure"/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                <field name="quality" type="row"/>&ndash;&gt;-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <!-- Inherit the sale report search view to add the quality field -->
+    <record id="view_order_product_search_inherit" model="ir.ui.view">
+        <field name="name">sale.report.search.inherit</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.view_order_product_search"/>  <!-- Reference to your original search view -->
+        <field name="arch" type="xml">
+            <!-- Add the quality field to the search view -->
+            <xpath expr="//group[2]/filter[@name='sales_channel']" position="after">
+                <filter string="Taxes" name="Taxes" context="{'group_by':'tax_id'}"/>
+            </xpath>
+            <xpath expr="//group[2]/filter[@name='Customer']" position="after">
+                <filter string="Quality" name="Quality" context="{'group_by':'quality'}"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
+
+
